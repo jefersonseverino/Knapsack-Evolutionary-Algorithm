@@ -1,11 +1,13 @@
 import random
 
-POPULATION_SIZE = 200
+POPULATION_SIZE = 300
 GENOMA_SIZE = 100
 NUM_OF_ITEMS = 100
 MUTATION_PROB = 0.02
-CROSSOVER_PROB = 0.9
-MAX_GENERATIONS = 1000
+CROSSOVER_PROB = 0.75
+MAX_GENERATIONS = 500
+NUM_OF_PARENTS = POPULATION_SIZE // 2
+
 items_list = []
 class Item:
 
@@ -69,20 +71,20 @@ def check_stop_condition(population, best_fit, best_fit_count):
     best_fit_count = 0
     best_fit = current_best
 
-  if best_fit_count > 100:
+  if best_fit_count > 10:
     print('Convergiu')
     return True, best_fit, best_fit_count
   
   return False, best_fit, best_fit_count
 
 def tournament(population):
-  parents_candidates = random.sample(population, 10)
+  parents_candidates = random.sample(population, 5)
   parents_candidates = sorted(parents_candidates, reverse=True, key=fitness)
   return parents_candidates[:2]
 
 def parents_selection(population):
   parents = []
-  for _ in range(0, 20):
+  for _ in range(0, NUM_OF_PARENTS):
     parents.append(tournament(population))
 
   return parents
@@ -98,7 +100,7 @@ def crossover(parents_list):
 def mutation(population):
   for individual in population:
     for i in range(GENOMA_SIZE):
-      if random.random() < 0.02:
+      if random.random() < MUTATION_PROB:
           individual[i] = 1 - individual[i]
 
   return population
@@ -158,8 +160,6 @@ def find_solution(population):
 #     for idx in mutated_genes:
 #       children[selected_child][idx] = 1 - children[selected_child][idx]
   # return children
-
-
 
 
 def knapsack_dp(items_list, capacity):
