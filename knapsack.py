@@ -49,10 +49,6 @@ def fitness(genome):
     value += gene * items_list[idx].value
     weight += gene * items_list[idx].weight
 
-    # excess_weight = max(0, weight - 100)
-    # penalty = excess_weight ** 2
-    # fitness = value - penalty
-
   fitness = value
 
   if weight > 100:
@@ -135,32 +131,6 @@ def find_solution(population):
       break
   
   return population, num_iterations
-
-# def is_individual_valid(individual):
-#   total_weight = 0
-#   for idx in range(0, len(individual)):
-#     total_weight += (items_list[idx].weight) * (individual[idx])
-
-#   return total_weight <= 100
-
-# def remove_invalids(children):
-#   valid_children = []
-#   for child in children:
-#     if is_individual_valid(child):
-#       valid_children.append(child)
-
-#   return valid_children
-
-# def mutation(children):
-#   # Check mutation in the same child
-#   mutated_children = int(0.1 * len(children)) # Mutation rate changed to 0.05 (Initial)
-#   for i in range(0, mutated_children):
-#     selected_child = random.randint(0, len(children) - 1)
-#     mutated_genes = random.sample(range(0, genoma_size), 5)
-#     for idx in mutated_genes:
-#       children[selected_child][idx] = 1 - children[selected_child][idx]
-  # return children
-
 
 def knapsack_dp(items_list, capacity):
     n = len(items_list)
